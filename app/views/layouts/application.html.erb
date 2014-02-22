@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= content_for?(:title) ? yield(:title) : "Tower Defense" %></title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+      <div class="Main_Header">
+    <%= link_to "", root_path, class: "headerLink" %>
+    <% if is_signed_in? %>
+      <ul class="nav">
+        <li><%= link_to :ScoreBoard, scoreboard_path, class: "nav_links" %> |</li>
+        <li><%= link_to :Profile, profile_path(@current_user), class: "nav_links" %> |</li>
+        <li><%= link_to :Logout , :logout, class: "nav_links" %></li> 
+      </ul>
+    <%else%>
+      <ul class="nav">
+        <li><%= link_to :ScoreBoard, scoreboard_path, class: "nav_links" %> |</li>
+        <li><%= link_to :Signup , :signup, class: "nav_links"%> |</li>
+        <li><%= link_to :Signup, "#" %></li>
+        <li><%= link_to :Login , :login, class: "nav_links"%></li>  
+      </ul>
+    <% end %>
+  </div>
+  <% if flash[:color]== "valid" %>
+    <div class="valid_notice">
+      <p><%= flash[:notice]%></p>
+    </div>
+  <% elsif flash[:color]== "invalid"%>
+    <div class="invalid_notice">
+      <p><%=flash[:notice]%></p>
+    </div>
+  <% else %>
+    <div class="notice">
+      <p><%=flash[:notice]%></p>
+    </div>
+  <% end %>
+
+    <%= yield %>
+
+
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  </body>
+</html>

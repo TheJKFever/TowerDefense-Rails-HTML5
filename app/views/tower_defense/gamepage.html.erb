@@ -1,0 +1,22 @@
+<% content_for :title, "Tower Defense | Home" %>
+<div class="row">
+	<div class="large-8 columns">
+	<h1>Tower Defense Game</h1>
+	<p>The game goes here</p>
+</div>
+
+<div class="large-4 columns">
+	<h2>High Scores</h2>
+	<table>
+		<tr>
+			<th>Username</th>
+			<th>High Score</th>
+		</tr>
+		<%	@highscore_users.each do |u| %>
+		<tr>
+			<td><%= u.username %></td>
+			<td><%= u.high_score %></td>
+		</tr>
+		<% end %>
+	</table>
+</div>

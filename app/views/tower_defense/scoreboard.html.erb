@@ -1,0 +1,24 @@
+<% content_for :title, "Tower Defense | Scoreboard" %>
+<div class="row">
+	<h1>Tower Defense Scoreboard</h1>
+	</br>
+	<h2>High Scores</h2>
+	<div>
+	<table class="scoreboard">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>High Score</th>
+			</tr>
+        </thead>
+        <tbody>
+			<%	@users.each do |u| %>
+			<tr>
+				<td><%= u.username %></td>
+				<td><%= u.high_score %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	</div>
+</div>

@@ -1,0 +1,122 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require foundation_and_overrides
+ *= require_self
+ *= require_tree .
+ */
+
+@import "foundation_and_overrides";
+
+body{
+	margin: 0px;
+	background-color: #C4C1BD;
+}
+.Sign_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:10px;	
+	width:500px;
+	background-color: rgba(0, 0, 0, .2);
+	padding-bottom:20px;
+	padding-top:2px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+
+}
+
+input.Sign_Form_Field{
+	width: 95%;
+	border-radius: 5px;
+	margin: auto;
+}
+
+.Signup_Errors{
+	list-style-type: none;
+	text-align:left;
+	margin-left:66px;
+	color:red;
+}
+
+.Main_Header{
+	background:#000 url('td_logo_long.png');
+	background-repeat:no-repeat;
+	height:80px;
+	background-size: auto 80px;
+	border-bottom-left-radius: 18px;
+	border-bottom-right-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+}
+
+.headerLink{
+	display: block;
+	position: absolute;
+	left:55px;
+	width: 455px;
+	height: 80px;
+	border-radius: 18px;
+}
+
+.nav{
+	list-style-type: none;
+	float: right;
+	color:#C4C1BD;
+
+}
+.nav li{
+	display: inline;
+	margin-right:5px;
+
+}
+.nav_links{
+	color: #C4C1BD;
+	text-decoration: none;
+} 
+
+.notice, .valid_notice, .invalid_notice{
+	height:35px;
+	width: 400px;
+	margin:auto;
+	margin-top:20px;
+}
+.notice, .invalid_notice p, .valid_notice p{
+	text-align:center;
+	margin-top:6px;
+}
+
+.notice{
+	background-color: transparent;
+}
+
+.invalid_notice{
+	background-color: #FFCCCC;
+	border:1px solid red;
+}
+.valid_notice{
+	background-color: #CCFFCC;
+	border:1px solid green;
+}
+
+.User_Header{
+
+	background-color: rgba(0, 0, 0, .2);
+	border-radius: 18px;
+	margin:auto;
+	width:220px;
+	text-align:center;
+}
+
+table.scoreboard{
+	width: 300px;
+	display: block;
+	max-height: 333px;
+    overflow-y:scroll;
+}
+
