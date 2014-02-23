@@ -17,18 +17,31 @@
 
 body{
 	margin: 0px;
-	background-color: #C4C1BD;
+	background-size: 120%;
+	background-image: url("towerBackground.jpg");
+	background-position:left top;
+	/*background-size:cover;*/
 }
+
+/* For any viewports less than 1100px wide */
+@media (max-width: 1100px) {
+
+    body {
+        background-size: 1400px; /* Force the image to its minimum width */
+    }
+
+}
+
 .Sign_Form{
 	text-align: center;
 	margin:auto;
 	margin-top:10px;	
 	width:500px;
-	background-color: rgba(0, 0, 0, .2);
+	background-color: #888888;
 	padding-bottom:20px;
 	padding-top:2px;
 	border-radius: 18px;
-	box-shadow: 5px 5px 5px #888888;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
 
 }
 
@@ -50,9 +63,9 @@ input.Sign_Form_Field{
 	background-repeat:no-repeat;
 	height:80px;
 	background-size: auto 80px;
-	border-bottom-left-radius: 18px;
+/*	border-bottom-left-radius: 18px;
 	border-bottom-right-radius: 18px;
-	box-shadow: 5px 5px 5px #888888;
+*/	box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
 }
 
 .headerLink{
@@ -64,6 +77,8 @@ input.Sign_Form_Field{
 	border-radius: 18px;
 }
 
+
+/* NAV */
 .nav{
 	list-style-type: none;
 	float: right;
@@ -79,6 +94,26 @@ input.Sign_Form_Field{
 	color: #C4C1BD;
 	text-decoration: none;
 } 
+  nav ul {
+  	float:right; 
+  	padding:13px 13px 0 13px;
+  }
+
+  nav .button {
+  	  margin-bottom: 0;
+      border: 0;
+      background: black;
+      box-shadow: 0;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+    }
+    nav .button:hover {
+      color: white;
+    }
+    nav .button:active {
+      background: #e78129;
+    }   
 
 .notice, .valid_notice, .invalid_notice{
 	height:35px;
@@ -113,6 +148,13 @@ input.Sign_Form_Field{
 	text-align:center;
 }
 
+.highscore10 {
+	padding: 10px 15px 0 15px;
+	margin-bottom: 20px;
+	background: rgba(56, 56, 56, .6);
+	border:1px solid black;
+}
+
 table.scoreboard{
 	width: 300px;
 	display: block;
@@ -120,3 +162,10 @@ table.scoreboard{
     overflow-y:scroll;
 }
 
+.gameWindow {
+	width:100%;
+	height:600px;
+	background: rgba(56, 56, 56, .6);
+	border:1px solid black;
+	margin-bottom: 30px;
+}

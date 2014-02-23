@@ -10,39 +10,9 @@
   </head>
 
   <body>
-      <div class="Main_Header">
-    <%= link_to "", root_path, class: "headerLink" %>
-    <% if is_signed_in? %>
-      <ul class="nav">
-        <li><%= link_to :ScoreBoard, scoreboard_path, class: "nav_links" %> |</li>
-        <li><%= link_to :Profile, profile_path(@current_user), class: "nav_links" %> |</li>
-        <li><%= link_to :Logout , :logout, class: "nav_links" %></li> 
-      </ul>
-    <%else%>
-      <ul class="nav">
-        <li><%= link_to :ScoreBoard, scoreboard_path, class: "nav_links" %> |</li>
-        <li><%= link_to :Signup , :signup, class: "nav_links"%> |</li>
-        <li><%= link_to :Signup, "#" %></li>
-        <li><%= link_to :Login , :login, class: "nav_links"%></li>  
-      </ul>
-    <% end %>
-  </div>
-  <% if flash[:color]== "valid" %>
-    <div class="valid_notice">
-      <p><%= flash[:notice]%></p>
-    </div>
-  <% elsif flash[:color]== "invalid"%>
-    <div class="invalid_notice">
-      <p><%=flash[:notice]%></p>
-    </div>
-  <% else %>
-    <div class="notice">
-      <p><%=flash[:notice]%></p>
-    </div>
-  <% end %>
-
+    <%= render 'layouts/header' %>
     <%= yield %>
-
+    <%= render 'layouts/footer' %>
 
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </body>
