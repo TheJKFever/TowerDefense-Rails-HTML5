@@ -1,5 +1,38 @@
+<body id="towerBackground">
+  <!-- NAVIGATION BAR -->
+  <div class="fixed" style="margin-bottom:50px">
+    <nav>
+      <div class="Main_Header">
+        <%= link_to "", towerDefense_path, class: "headerLink" %>
+        <ul class="button-group radius" style="float:right; padding:13px 13px 0 13px;">
+          <li style="width:150px, height:50px">
+            <%= link_to "Tower Defense", towerDefense_path, class: "button" %>
+          </li>
+          <li style="width:150px, height:50px">
+            <%= link_to "Phaser Stars", phaserStars_path, class: "button" %>
+          </li>
+          <li style="width:170px"><%= link_to :ScoreBoard, scoreboard_path, class: "button" %></li>
+            <%= render 'layouts/nav_right' %> 
+        </ul>
+      </div>
+        <%= render 'layouts/notice' %>
+    </nav>
+  </div>
+  <div class="row" style="margin-bottom: 130px"></div>
+  <!-- END NAVIGATION BAR -->
+
+
+
+
 <% content_for :title, "Profile Page | "+@user.username %>
 <div class="row">
-	<h1><%= @user.username + " Profile Page"%></h1>
-	<p>Find me in app/views/profile/show.html.erb</p>
+	<h1><%= "Profile Page: " + @user.username%></h1>
+	<br/>
+	<p>Username: <%= @user.username %></p>
+  <% if @tdScore.present? %>
+  	<p>Tower Defense High Score: <%= @tdScore.value %> </p>
+  <% end %>
+  <% if @psScore.present? %>
+    <p>Phaser Stars High Score: <%= @psScore.value %> </p>
+  <% end %>
 </div>

@@ -1,0 +1,76 @@
+<body id="towerBackground">
+<!-- NAVIGATION BAR -->
+  <div class="fixed" style="margin-bottom:50px">
+    <nav>
+      <div class="Main_Header">
+        <%= link_to "", towerDefense_path, class: "headerLink" %>
+        <ul class="button-group radius" style="float:right; padding:13px 13px 0 13px;">
+          <li style="width:150px, height:50px">
+            <%= link_to "Phaser Stars", phaserStars_path, class: "button" %>
+          </li>
+          <li style="width:150px">
+            <%= link_to "Tower Defense", towerDefense_path, class: "button" %>
+          </li>
+            <%= render 'layouts/nav_right' %> 
+        </ul>
+      </div>
+      <% if flash[:color]== "valid" %>
+        <div class="valid_notice">
+      <% elsif flash[:color]== "invalid"%>
+        <div class="invalid_notice">
+      <% else %>
+        <div class="notice">
+      <% end %>
+          <p><%= flash[:notice]%></p>
+        </div>
+    </nav>
+  </div>
+  <div class="row" style="margin-bottom: 130px"></div>
+  <!-- END NAVIGATION BAR -->
+
+
+  <% content_for :title, "Tower Defense | Scoreboard" %>
+<div class="row">
+	<div class="small-6 columns">
+		<h2 style="text-align: right; padding: 0 15px">Tower Defense High Scores</h2>
+		<div class="large-10 large-offset-2 columns">
+			<table class="longScoreboard">
+				<tr>
+					<th style="width:60%">Username</th>
+					<th style="width:40%">High Score</th>
+				</tr>
+		        <tbody>
+					<%	@tdScores.each do |score| %>
+					<tr>
+						<td style="width:60%"><%= score.user.username %></td>
+						<td style="width:40%"><%= score.value %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="small-6 columns">	
+		<h2 style="padding: 0 15px">Phaser Stars High Scores</h2>
+		<div class="large-10 columns end">
+			<div>
+				<table class="longScoreboard">
+					<thead>
+						<tr>
+							<th>Username</th>
+							<th>High Score</th>
+						</tr>
+			        </thead>
+			        <tbody>
+						<%	@psScores.each do |score| %>
+						<tr>
+							<td><%= score.user.username %></td>
+							<td><%= score.value %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

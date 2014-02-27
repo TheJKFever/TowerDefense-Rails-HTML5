@@ -11,14 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212200511) do
+ActiveRecord::Schema.define(version: 20140224104125) do
+
+  create_table "games", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "highscores", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "highscores", ["game_id"], name: "index_highscores_on_game_id"
+  add_index "highscores", ["user_id"], name: "index_highscores_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "encrypted_password"
     t.string   "avatar_url"
     t.string   "salt"
-    t.integer  "high_score"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -13,10 +13,24 @@ namespace :db do
         Rake::Task['db:create'].invoke
         Rake::Task['db:schema:load'].invoke
 
-        User.populate 400 do |user|
+        @game = Game.new(:name => "Tower Defense")
+        @game.save
+        @game = Game.new(:name => "Phaser Stars")
+        @game.save
+
+        User.populate 200 do |user|
             user.username = Faker::Internet.user_name
-            user.high_score = 1000..200000
             user.encrypted_password = User.new(:password => password).encrypted_password
+            Highscore.populate 1 do |highscore|
+                highscore.user_id = user.id
+                highscore.game_id = 1
+                highscore.value = 1000..200000
+            end
+            Highscore.populate 1 do |highscore|
+                highscore.user_id = user.id
+                highscore.game_id = 2
+                highscore.value = 1000..200000
+            end
         end
     end
 end

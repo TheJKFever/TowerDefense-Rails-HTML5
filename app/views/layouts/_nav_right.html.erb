@@ -1,0 +1,7 @@
+<% if is_signed_in? %>
+	<li style="width:115px"><%= link_to :Profile, profile_path(@current_user), class: "button" %></li>
+	<li style="width:115px"><%= link_to :Logout , :logout, class: "button" %></li> 
+<%else%>
+	<li style="width:115px"><%= link_to :Signup , new_profile_path, class: "button"%></li>
+	<li style="width:115px"><%= link_to :Login , :login, class: "button"%></li>  
+<% end %>

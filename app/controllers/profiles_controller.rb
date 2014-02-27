@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-	before_filter :authenticate_user, :only => [:edit, :update, :show]
+	before_filter :requires_signed_in, :only => [:edit, :update, :show]
 
 	# Signup page
 	def new
@@ -26,12 +26,10 @@ class ProfilesController < ApplicationController
 
 	# edit profile page
 	def edit
-		requires_signed_in
 		@user = User.find(params[:id])
 	end
 
 	def update
-		requires_signed_in
 		@user = User.new(user_params)
 		if @user.update
 			flash[:notice] = "You have successfully updated your profile"
@@ -46,8 +44,9 @@ class ProfilesController < ApplicationController
 
 	# profile page
 	def show
-		requires_signed_in
 		@user = User.find(params[:id])
+		@tdScore = Highscore.where("user_id = ?", @user.id).joins(:game).where('name = "Tower Defense"')[0]
+		@psScore = Highscore.where("user_id = ?", @user.id).joins(:game).where('name = "Phaser Stars"')[0]
 	end
 
 	private

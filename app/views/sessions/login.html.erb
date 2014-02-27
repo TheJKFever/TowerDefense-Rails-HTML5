@@ -1,3 +1,27 @@
+<body>
+  <!-- NAVIGATION BAR -->
+  <div class="fixed" style="margin-bottom:50px">
+    <nav>
+      <div class="Main_Header">
+        <%= link_to "", towerDefense_path, class: "headerLink" %>
+        <ul class="button-group radius" style="float:right; padding:13px 13px 0 13px;">
+          <li style="width:150px, height:50px">
+            <%= link_to "Tower Defense", towerDefense_path, class: "button" %>
+          </li>
+          <li style="width:150px, height:50px">
+            <%= link_to "Phaser Stars", phaserStars_path, class: "button" %>
+          </li>
+          <li style="width:170px"><%= link_to :ScoreBoard, scoreboard_path, class: "button" %></li>
+            <%= render 'layouts/nav_right' %> 
+        </ul>
+      </div>
+        <%= render 'layouts/notice' %>
+    </nav>
+  </div>
+  <div class="row" style="margin-bottom: 130px"></div>
+  <!-- END NAVIGATION BAR -->
+
+
 <% @page_title = "Tower Defense | Login" -%>
 	<div class="Sign_Form">
 	  <h1>Login</h1>

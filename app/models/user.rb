@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
 	attr_accessor :password
-
   before_save :encrypt_password
 	after_save :clear_password
+
+  has_many :highscores
 
 	validates :username, :presence => true, :uniqueness => true, :length => { :in => 3..20 }
 	validates :password, :confirmation => true

@@ -1,15 +1,14 @@
 TowerDefense::Application.routes.draw do
-  root to: 'tower_defense#gamepage'
+  root to: 'pages#phaserStars'
 
-  get "signup", to: "profiles#new" #signup page
-  post "profiles/create", to: "profiles#create" 
   get "login", to: "sessions#login"
   get "logout", to: "sessions#logout"
   post "sessions/login_auth", to: "sessions#login_auth"
-  get "scoreboard", to: "tower_defense#scoreboard"
+  get "scoreboard", to: "pages#scoreboard"
+  get "towerDefense", to: "pages#towerDefense"
+  get "phaserStars", to: "pages#phaserStars"
 
   resources :profiles
-
   
 
   # The priority is based upon order of creation: first created -> highest priority.
