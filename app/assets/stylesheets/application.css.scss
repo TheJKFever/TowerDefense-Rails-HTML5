@@ -16,28 +16,26 @@
 @import "foundation_and_overrides";
 
 body{
-	background-size: cover;
-  	background-position: center;
-  	background-repeat: no-repeat;
-  	background-image: url("phaserBackground.png");
+}
+
+h1, h2, h3, h4, h5, p, li {
+	color: white;
 }
 
 #towerBackground{
 	background-size: cover;
   	background-position: center;
-  	background-repeat: no-repeat;
-	background-image: url("towerBackground.jpg");
+	background-image: asset-url("towerBackground.jpg");
 }
 
 #phaserBackground{
 	background-size: cover;
   	background-position: center;
-  	background-repeat: no-repeat;
-	background-image: url("phaserBackground.png");
+	background-image: asset-url("phaserBackground.png");
 }
 
 #phaserHeader{
-	background:#000 url('ps_logo_long.jpg');
+	background:#000 asset-url('ps_logo_long.jpg');
 	background-repeat:no-repeat;
 	height:80px;
 	background-size: auto 80px;
@@ -188,23 +186,26 @@ input.Sign_Form_Field{
 	text-align:center;
 }
 
-.highscore10 {
-	padding: 10px 15px 0 15px;
-	margin-bottom: 20px;
-	background: rgba(56, 56, 56, .6);
-	border:1px solid black;
-}
-
-.scoreboard{
+.scoreboard {
 	display: block;
 	max-height: 333px;
     overflow-y: scroll;
+	background: rgba(56, 56, 56, .6);
+}
+
+.scoreboard li, h4 {
+		color: white;	
+	}
+
+.highscore10 {
+	padding: 10px 15px 0 15px;
+	margin-bottom: 20px;
+	border:1px solid black;
 }
 
 .longScoreboard{
-	display: block;
 	max-height: 600px;
-    overflow-y: scroll;
+	width: 100%;
 }
 
 

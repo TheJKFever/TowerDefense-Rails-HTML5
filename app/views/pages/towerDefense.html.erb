@@ -40,7 +40,7 @@
          <li style="width: 165px;text-align:left"><strong>Username</strong></li>
          <%	@highscores.each_with_index do |score, i| %>
          <li style="width: 65px;float:right"><%= score.value %></li>
-         <li style="width: 175px;text-align:left"><%= i.to_s + ".) " + score.user.username %></li>
+         <li style="width: 175px;text-align:left"><%= (i+1).to_s + ".) " + score.user.username %></li>
          <% end %>
        </ul>
      </div>

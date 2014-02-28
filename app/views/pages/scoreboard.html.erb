@@ -8,7 +8,7 @@
           <li style="width:150px, height:50px">
             <%= link_to "Phaser Stars", phaserStars_path, class: "button" %>
           </li>
-          <li style="width:150px">
+          <li style="width:150px, height:50px">
             <%= link_to "Tower Defense", towerDefense_path, class: "button" %>
           </li>
             <%= render 'layouts/nav_right' %> 
@@ -36,14 +36,18 @@
 		<div class="large-10 large-offset-2 columns">
 			<table class="longScoreboard">
 				<tr>
-					<th style="width:60%">Username</th>
-					<th style="width:40%">High Score</th>
+					<thead>
+						<th style="width:10%">Rank</th>
+						<th style="width:55%">Username</th>
+						<th style="width:45%">High Score</th>
+					<thead>
 				</tr>
 		        <tbody>
-					<%	@tdScores.each do |score| %>
+					<%	@tdScores.each_with_index do |score, index| %>
 					<tr>
-						<td style="width:60%"><%= score.user.username %></td>
-						<td style="width:40%"><%= score.value %></td>
+						<td style="text-align:center"><%= index + 1 %></td>
+						<td><%= score.user.username %></td>
+						<td><%= score.value %></td>
 					</tr>
 					<% end %>
 				</tbody>
@@ -53,24 +57,24 @@
 	<div class="small-6 columns">	
 		<h2 style="padding: 0 15px">Phaser Stars High Scores</h2>
 		<div class="large-10 columns end">
-			<div>
-				<table class="longScoreboard">
-					<thead>
-						<tr>
-							<th>Username</th>
-							<th>High Score</th>
+			<table class="longScoreboard">
+				<thead>
+					<tr>
+						<th style="width:10%">Rank</th>
+						<th style="width:55%">Username</th>
+						<th style="width:45%">High Score</th>
+					</tr>
+		        </thead>
+		        <tbody>
+					<%	@psScores.each_with_index do |score, index| %>
+					<tr>
+						<td style="text-align:center"><%= index + 1 %></td>
+						<td><%= score.user.username %></td>
+						<td><%= score.value %></td>
 						</tr>
-			        </thead>
-			        <tbody>
-						<%	@psScores.each do |score| %>
-						<tr>
-							<td><%= score.user.username %></td>
-							<td><%= score.value %></td>
-							</tr>
-						<% end %>
-					</tbody>
-				</table>
-			</div>
+					<% end %>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
