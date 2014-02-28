@@ -104,7 +104,7 @@ function preload() {
     // Create Sounds
     dieSound = game.add.audio('die', 0.3);
     collectSound = game.add.audio('collect', 0.3);
-    levelUpSound = game.add.audio('levelUp', 0.9);
+    levelUpSound = game.add.audio('levelUp', 0.6);
     game.initiated = false;
 
     singlePlayerBtn = game.add.button(game.width/2-235, game.height/2-90, 'singlePlayerBtn', function(){setupGame(false)});
@@ -287,7 +287,6 @@ function preload() {
   }
 
   function die (player) {
-    console.log("player died");
     if (player.alive){
       player.runningSound.pause();
       player.lives -= 1;

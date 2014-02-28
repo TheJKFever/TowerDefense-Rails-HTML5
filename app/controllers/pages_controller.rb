@@ -10,6 +10,6 @@ class PagesController < ApplicationController
 	end
 
 	def phaserStars
-		@highscores = Highscore.joins(:game).where('games.name = "Phaser Stars"')
+		@highscores = Highscore.joins(:game).where('games.name = Phaser Stars')
 	end
 end
