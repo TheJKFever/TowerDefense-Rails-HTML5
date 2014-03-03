@@ -189,7 +189,7 @@ input.Sign_Form_Field{
 .scoreboard {
 	display: block;
 	max-height: 333px;
-    overflow-y: scroll;
+    overflow-y: auto;
 	background: rgba(56, 56, 56, .6);
 }
 

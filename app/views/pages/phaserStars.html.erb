@@ -18,12 +18,12 @@
   <div class="row" style="margin-bottom: 130px"></div>
   <!-- END NAVIGATION BAR -->
   <% content_for :title, "Phaser Stars" %>
-  <%= javascript_include_tag "phaser.min" %>
   <!-- Main Page Content and Sidebar -->
   <div class="row">
     <!-- Game Section -->
     <div class="large-9 columns" role="content">
       <div id="phaserStars" class="gameWindow">
+        <!-- Game goes here -->
       </div>
     </div>
     <!-- End Game Section -->
@@ -50,7 +50,31 @@
   <!-- End Sidebar -->
 </div>
 <!-- End Main Content and Sidebar -->
+
+
+
+<%= javascript_include_tag "phaser.min" %>
 <script type="text/javascript">
+<% if is_signed_in? %>
+  var loggedIn = true;
+  var highscore =
+    <% if @highscore.present? %>
+      {
+        id: <%= @highscore.id %>,
+        value: <%= @highscore.value %>,
+        game_id: 2,
+        user_id: <%= @current_user.id %>
+      }
+    <% else %>
+      {
+        value: 0,
+        game_id: 2,
+        user_id: <%= @current_user.id %>
+      }
+    <% end %>
+<% else %>
+  var loggedIn = false;
+<% end %>
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaserStars', { preload: preload, create: create, update: update });
 var jumpcount = 0;
 var multiplayer = false;
@@ -99,7 +123,7 @@ function preload() {
       up: game.input.keyboard.addKey(Phaser.Keyboard.W),
       left: game.input.keyboard.addKey(Phaser.Keyboard.A),
       right: game.input.keyboard.addKey(Phaser.Keyboard.D)    
-    }
+    };
 
     // Create Sounds
     dieSound = game.add.audio('die', 0.3);
@@ -107,8 +131,8 @@ function preload() {
     levelUpSound = game.add.audio('levelUp', 0.6);
     game.initiated = false;
 
-    singlePlayerBtn = game.add.button(game.width/2-235, game.height/2-90, 'singlePlayerBtn', function(){setupGame(false)});
-    multiPlayerBtn = game.add.button(game.width/2-230, game.height/2+20, 'multiPlayerBtn', function(){setupGame(true)});
+    singlePlayerBtn = game.add.button(game.width/2-235, game.height/2-90, 'singlePlayerBtn', function(){setupGame(false);});
+    multiPlayerBtn = game.add.button(game.width/2-230, game.height/2+20, 'multiPlayerBtn', function(){setupGame(true);});
   }
 
   function update() {
@@ -294,22 +318,21 @@ function preload() {
       if (player.lives < 2){
         addExtraLife();
       }
-      if (player.lives==0){
+      if (player.lives===0){
         player.runningSound.stop();
         player.kill();
         if (multiplayer){
           if (player1.lives<=0 && player2.lives<=0){
             gameover();
-            gameOverText.content = "GAME OVER";
-            restartIcon = game.add.button(game.width/2-116, game.height/2-50, 'restart', function(){ resetGame(true) });
-            singlePlayerBtn = game.add.button(game.width/2-235, game.height/2+60, 'singlePlayerBtn', function(){resetGame(false)});
+            restartIcon = game.add.button(game.width/2-116, game.height/2-50, 'restart', function(){ resetGame(true); });
+            singlePlayerBtn = game.add.button(game.width/2-235, game.height/2+60, 'singlePlayerBtn', function(){resetGame(false);});
             return;
           }
         } else {
           gameover();
-          gameOverText.content = "GAME OVER";
-          restartIcon = game.add.button(game.width/2-116, game.height/2-50, 'restart', function(){ resetGame(false) });
-          multiPlayerBtn = game.add.button(game.width/2-230, game.height/2+60, 'multiPlayerBtn', function(){resetGame(true)});
+          updateScore();
+          restartIcon = game.add.button(game.width/2-116, game.height/2-50, 'restart', function(){ resetGame(false); });
+          multiPlayerBtn = game.add.button(game.width/2-230, game.height/2+60, 'multiPlayerBtn', function(){resetGame(true);});
           return;
         }
         return;
@@ -320,7 +343,7 @@ function preload() {
       deathPlayer.body.gravity.y = 1300;
       deathPlayer.body.velocity.y = -350;
       deathPlayer.outOfBoundsKill = true;
-      setTimeout(function(){respawn(player)},1000);
+      setTimeout(function(){respawn(player);},1000);
     }
   }
 
@@ -330,7 +353,6 @@ function preload() {
   }
 
   function addStars(){
-    var j = 0;
     for (var j=0; j<2; j++) {
       for (var i = 0; i < 18; i++) {  //  Create a star inside of the 'collectables' group
         var star = collectables.create(i*45, (Math.random()*80)+(j*330), 'star');
@@ -367,6 +389,7 @@ function preload() {
   }
 
   function gameover(){
+    gameOverText.content = "GAME OVER";
     game.initiated = false;
     dog1.body.velocity.x = 0;
     dog2.body.velocity.x = 0;
@@ -376,9 +399,50 @@ function preload() {
     ledge2.body.velocity.x = 0;
   }
 
+  function updateScore(){
+    if (loggedIn){
+      if (highscore.value===0){
+        highscore.value = player1.score;
+        $.ajax({
+          type:     "PUT",
+          url:      "/create_score",
+          data:     { highscore: highscore },
+          datatype: "json",
+          success: function(data){
+            alertHighScore();
+            // UPDATE HIGH SCORE ON PAGE
+            },
+          async: true
+        });        
+      }
+      else if (player1.score > highscore.value){
+        highscore.value = player1.score;
+        $.ajax({
+          type:     "PUT",
+          url:      "/update_score",
+          data:     { highscore: highscore },
+          datatype: "json",
+          success: function(data){
+            alertHighScore();
+            // UPDATE HIGH SCORE ON PAGE
+            },
+          async: true
+        });
+      }
+    }
+  }
+
+  function alertHighScore(){
+    $('#phaserStars').append('<div class="newHighScore"><img src="<%= asset_path('game_images/high_score.png')%>"/></div>');
+    $('.newHighScore').fadeIn(1000);
+    setTimeout(function(){
+      $('.newHighScore').fadeOut(1000, function(){ $(this).remove(); })
+    }, 3000);
+  }
+
   function setupStage(){
   //  A simple background for our game
-  game.add.sprite(0, 0, 'background2');
+    game.add.sprite(0, 0, 'background2');
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
     ground = platforms.create(0, game.world.height - 32, 'ground');
@@ -433,6 +497,10 @@ function preload() {
       player2.scoreText = game.add.text(650, 50, 'Score: 0', { font: '28px arial', fill: '#000' });
       player2.livesText = game.add.text(675, 84, 'lives: 5', { font: '28px arial', fill: '#000' });
       players.add(player2);
+    } else {
+      if (loggedIn){
+        player1.highscoreText = game.add.text((635-(15*highscore.value.toString().length)), 16, 'Highscore: '+highscore.value, { font: '28px arial', fill: '#000' });
+      }
     }
 
     // INITIALIZE DOGS
@@ -485,6 +553,11 @@ function preload() {
       player2Text.content = 'Player 2';
       player2.scoreText.content = 'Score: 0';
       player2.livesText.content = 'lives: 5'; 
+    } else {
+      if (loggedIn){
+        player1.highscoreText.content = 'Highscore: '+highscore.value;
+        player1.highscoreText.x = (635-(15*highscore.value.toString().length));
+      }
     }
     multiplayer = twoPlayers;
 
@@ -521,7 +594,7 @@ function preload() {
     player.runningSound.pause();
     player.runningSound.loop = true;
     return player;
-  }
+  };
 
   var Dog = function(x, y, key, velocity){
     var dog = game.add.sprite(x, y, key);
@@ -534,6 +607,6 @@ function preload() {
       dog.animations.play('left');
     }
     return dog;
-  }
+  };
 
 </script>

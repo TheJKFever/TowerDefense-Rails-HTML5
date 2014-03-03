@@ -7,6 +7,8 @@ TowerDefense::Application.routes.draw do
   get "scoreboard", to: "pages#scoreboard"
   get "towerDefense", to: "pages#towerDefense"
   get "phaserStars", to: "pages#phaserStars"
+  put "update_score", to: "highscores#update"
+  put "create_score", to: "highscores#create"
 
   resources :profiles
   
